@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: "What's up mountain"),
     );
@@ -57,11 +57,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Colors.orange,
+                    color: Colors.blue,
                     width: 2.0
                   ),
                 ),
                 labelText: '山の名前を入力',
+                  labelStyle: TextStyle(
+                      color: Colors.black
+                  )
               ),
             ),
              ElevatedButton(onPressed: () {}, child: Text("検索", style: TextStyle(
