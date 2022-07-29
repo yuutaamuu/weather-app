@@ -1,113 +1,97 @@
 import 'package:flutter/material.dart';
+import './view//home_page.dart';
+import 'package:mountain_weather/constant/text_constant.dart';
+import 'package:mountain_weather/component/search_box.dart';
+import 'package:page_transition/page_transition.dart';
 
+import 'package:mountain_weather/view/weather_detail_page.dart';
+import 'package:mountain_weather/view/search_page.dart';
+import 'package:mountain_weather/view/compare_page.dart';
+import 'package:mountain_weather/component/bottom_btns.dart';
+
+//main function
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      home: MyPage(),
+      // routes: <String, WidgetBuilder>{
+      //   '/': (BuildContext context) => HomePage(),
+      //   '/searchPage': (BuildContext context) => SearchPage(),
+      //   '/comparePage': (BuildContext context) => ComparePage(),
+      // },
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/weatherDetail':
+            return PageTransition(
+              child: WeatherDatailPage(),
+              duration: Duration(milliseconds: 200),
+              reverseDuration: Duration(milliseconds: 200),
+              type: PageTransitionType.bottomToTop,
+              settings: settings,
+            );
+          default:
+            return null;
+        }
+      },
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.blueGrey,
+        textTheme: Theme.of(context).textTheme.apply(
+              bodyColor: Colors.white, //<-- SEE HERE
+              displayColor: Colors.white,
+            ),
+        scaffoldBackgroundColor: Color(0xFF333333),
       ),
-      home: const MyHomePage(title: "What's up mountain"),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
+class MyPage extends StatefulWidget {
+  const MyPage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyPage> createState() => _MyPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyPageState extends State<MyPage> {
+  int _current = 0;
+  bool isActiveBar = true;
 
-  void _incrementCounter() {
+  static List<Widget> _pageList = [HomePage(), SearchPage(), ComparePage()];
+
+  void _onTap(int index) {
     setState(() {
-      _counter++;
+      _current = index;
+      index == 2 ? isActiveBar = false : isActiveBar = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final listItems = [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 1',
-      'Item 2',
-      'Item 3',
-    ];
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Container(
-              child: const TextField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.black12,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue, width: 2.0),
-                    ),
-                    labelText: '山の名前を入力',
-                    labelStyle: TextStyle(color: Colors.black)),
-              ),
-            ),
-            Container(
-              height: 600,
-              padding: EdgeInsets.all(4),
-              child: ListView.builder(
-                itemCount: listItems.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Container(
-                      height: 40,
-                      width: double.infinity,
-                      child: Text(listItems[index]),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+        appBar: AppBar(
+          title: isActiveBar ? searchBox() : null,
+          backgroundColor: Colors.white.withOpacity(0.0),
+          elevation: 0.0,
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        extendBodyBehindAppBar: true,
+        body: _pageList[_current],
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: _onTap,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),
+            BottomNavigationBarItem(icon: Icon(Icons.search), label: '探す'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.compare_arrows), label: '比較'),
+          ],
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _current,
+        ));
   }
 }
