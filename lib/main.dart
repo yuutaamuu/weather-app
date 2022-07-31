@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import './view//home_page.dart';
 import 'package:mountain_weather/constant/text_constant.dart';
+import 'package:mountain_weather/constant/color_constant.dart';
 import 'package:mountain_weather/component/search_box.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:mountain_weather/view/weather_detail_page.dart';
 import 'package:mountain_weather/view/search_page.dart';
 import 'package:mountain_weather/view/compare_page.dart';
+import 'package:mountain_weather/view/search_result_page.dart';
 import 'package:mountain_weather/component/bottom_btns.dart';
 
 //main function
@@ -31,6 +33,14 @@ class MyApp extends StatelessWidget {
           case '/weatherDetail':
             return PageTransition(
               child: WeatherDatailPage(),
+              duration: Duration(milliseconds: 200),
+              reverseDuration: Duration(milliseconds: 200),
+              type: PageTransitionType.bottomToTop,
+              settings: settings,
+            );
+          case '/searchResult':
+            return PageTransition(
+              child: SearchResultPage(itemName: settings.arguments,),
               duration: Duration(milliseconds: 200),
               reverseDuration: Duration(milliseconds: 200),
               type: PageTransitionType.bottomToTop,
@@ -83,6 +93,7 @@ class _MyPageState extends State<MyPage> {
         extendBodyBehindAppBar: true,
         body: _pageList[_current],
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: kOrange,
           onTap: _onTap,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'ホーム'),

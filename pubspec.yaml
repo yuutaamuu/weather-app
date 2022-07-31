@@ -14,12 +14,17 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   page_transition: ^2.0.9
+  flutter_hooks: ^0.18.5+1
+  json_serializable: ^6.3.1
+  json_annotation: ^4.6.0
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  build_runner: ^2.2.0
 
 flutter:
 
@@ -27,6 +32,5 @@ flutter:
   uses-material-design: true
 
 
-  assets:
-    - images/avatar1.png
+
 

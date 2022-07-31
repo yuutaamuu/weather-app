@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
                     children: [
                       WeatherCard(
                         cl: kBlue,
+                        prefecture: "東京",
                         mountain: "高尾山",
                         time: "7/26 16:00",
                         weatherIcon: Icons.cloud,
@@ -40,6 +41,7 @@ class HomePage extends StatelessWidget {
                       ),
                       WeatherCard(
                         cl: kOrange,
+                        prefecture: "東京",
                         mountain: "高尾山",
                         time: "7/26 16:00",
                         weatherIcon: Icons.cloud,
@@ -48,6 +50,7 @@ class HomePage extends StatelessWidget {
                       ),
                       WeatherCard(
                         cl: kOrange,
+                        prefecture: "東京",
                         mountain: "高尾山",
                         time: "7/26 16:00",
                         weatherIcon: Icons.cloud,
@@ -56,6 +59,7 @@ class HomePage extends StatelessWidget {
                       ),
                       WeatherCard(
                         cl: kBlue,
+                        prefecture: "東京",
                         mountain: "高尾山",
                         time: "7/26 16:00",
                         weatherIcon: Icons.cloud,
@@ -64,6 +68,7 @@ class HomePage extends StatelessWidget {
                       ),
                       WeatherCard(
                         cl: kBlue,
+                        prefecture: "東京",
                         mountain: "高尾山",
                         time: "7/26 16:00",
                         weatherIcon: Icons.cloud,

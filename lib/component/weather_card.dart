@@ -5,6 +5,7 @@ import 'package:mountain_weather/constant/color_constant.dart';
 class WeatherCard extends StatelessWidget {
   const WeatherCard(
       {required this.cl,
+        required this.prefecture,
         required this.mountain,
         required this.time,
         required this.weatherIcon,
@@ -12,6 +13,7 @@ class WeatherCard extends StatelessWidget {
         required this.tempos});
 
   final Color cl;
+  final String prefecture;
   final String mountain;
   final String time;
   final IconData weatherIcon;
@@ -39,15 +41,19 @@ class WeatherCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("東京都"),
-                        Text(
-                          mountain,
-                          style: kSecondText,
-                        ),
-                      ],
+                    Container(
+                      width: 140,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(prefecture),
+                          Text(
+                            mountain,
+                            style: kSecondText,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
                     ),
                     Text(time)
                   ],
